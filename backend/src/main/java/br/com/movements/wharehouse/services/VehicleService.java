@@ -25,14 +25,20 @@ public class VehicleService{
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Vehicle.class.getName()));
 	}
 	
-	public Vehicle save(Vehicle obj) {
+	public Vehicle create(Vehicle obj) {
 		obj.setId(null);
 		obj.setActive(true);
 		return repository.save(obj);
 	}
 	
 	public Vehicle update(Vehicle obj) {
-		find(obj.getId());
+		Vehicle result = find(obj.getId());
+		if(obj.getPlaqueTwo() == null) {
+			obj.setPlaqueTwo(null);
+		}
+		if(obj.getActive() == null) {
+			obj.setActive(result.getActive());
+		}
 		return repository.save(obj);
 	}
 }
