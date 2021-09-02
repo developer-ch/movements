@@ -27,6 +27,7 @@ public class VehicleService{
 	
 	public Vehicle save(Vehicle obj) {
 		obj.setId(null);
+		obj.setActive(true);
 		return repository.save(obj);
 	}
 }
