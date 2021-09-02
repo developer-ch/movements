@@ -24,4 +24,9 @@ public class VehicleService{
 		Optional<Vehicle> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Vehicle.class.getName()));
 	}
+	
+	public Vehicle save(Vehicle obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
 }
