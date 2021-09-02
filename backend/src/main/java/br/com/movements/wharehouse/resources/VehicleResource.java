@@ -32,7 +32,7 @@ public class VehicleResource {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findOne(@PathVariable Long id) {
-		Vehicle vehicle = service.findOne(id);
+		Vehicle vehicle = service.find(id);
 		return ResponseEntity.ok().body(vehicle) ;
 	}
 	

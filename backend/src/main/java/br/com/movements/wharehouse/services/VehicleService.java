@@ -20,7 +20,7 @@ public class VehicleService{
 		return repository.findAll(pageable);
 	}
 	
-	public Vehicle findOne(Long id) {
+	public Vehicle find(Long id) {
 		Optional<Vehicle> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + " Tipo: " + Vehicle.class.getName()));
 	}
@@ -28,6 +28,11 @@ public class VehicleService{
 	public Vehicle save(Vehicle obj) {
 		obj.setId(null);
 		obj.setActive(true);
+		return repository.save(obj);
+	}
+	
+	public Vehicle update(Vehicle obj) {
+		find(obj.getId());
 		return repository.save(obj);
 	}
 }
