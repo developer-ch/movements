@@ -3,13 +3,15 @@ package br.com.movements.wharehouse.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.movements.exceptions.ObjectNotFoundException;
 import br.com.movements.wharehouse.domain.Vehicle;
 import br.com.movements.wharehouse.repositories.VehicleRepository;
+import br.com.movements.wharehouse.services.exceptions.DataIntegrityException;
+import br.com.movements.wharehouse.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class VehicleService{
@@ -44,7 +46,12 @@ public class VehicleService{
 	
 	public void delete(Long id) {
 		 find(id);
-		repository.deleteById(id);
+		 try {
+			 repository.deleteById(id);
+		 }
+		 catch (DataIntegrityViolationException e) {
+			 throw new DataIntegrityException("Erro: Não foi possível excluir.");
+		}
 	}
 	
 	
