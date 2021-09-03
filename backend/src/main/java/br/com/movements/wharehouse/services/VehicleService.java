@@ -34,11 +34,17 @@ public class VehicleService{
 	public Vehicle update(Vehicle obj) {
 		Vehicle result = find(obj.getId());
 		if(obj.getPlaqueTwo() == null) {
-			obj.setPlaqueTwo(null);
+			obj.setPlaqueTwo(result.getPlaqueTwo());
 		}
 		if(obj.getActive() == null) {
 			obj.setActive(result.getActive());
 		}
 		return repository.save(obj);
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	
 }
