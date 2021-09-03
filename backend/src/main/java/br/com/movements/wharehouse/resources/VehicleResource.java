@@ -1,6 +1,7 @@
 package br.com.movements.wharehouse.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.movements.dto.VehicleDTO;
 import br.com.movements.wharehouse.domain.Vehicle;
 import br.com.movements.wharehouse.services.VehicleService;
 
@@ -26,7 +28,14 @@ public class VehicleResource {
 	@Autowired
 	private VehicleService service;
 	
+	
 	@GetMapping
+	public ResponseEntity<List<VehicleDTO>> findAll(){
+		List<VehicleDTO> vehicles = service.findAll();
+		return ResponseEntity.ok(vehicles);
+	}
+	
+	@GetMapping("/page")
 	public ResponseEntity<?> findAll(@PageableDefault Pageable pageable){
 		Page<Vehicle> vehicles = service.findAll(pageable);
 		return ResponseEntity.ok(vehicles);

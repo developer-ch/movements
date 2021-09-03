@@ -1,6 +1,8 @@
 package br.com.movements.wharehouse.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.movements.dto.VehicleDTO;
 import br.com.movements.wharehouse.domain.Vehicle;
 import br.com.movements.wharehouse.repositories.VehicleRepository;
 import br.com.movements.wharehouse.services.exceptions.DataIntegrityException;
@@ -20,6 +23,12 @@ public class VehicleService{
 	
 	public Page<Vehicle> findAll(Pageable pageable){
 		return repository.findAll(pageable);
+	}
+	
+	public List<VehicleDTO> findAll(){
+		List<Vehicle> listVehicles = repository.findAll();
+		List<VehicleDTO> listVehiclesDTO = listVehicles.stream().map(obj -> (new VehicleDTO(obj))).collect(Collectors.toList());
+		return listVehiclesDTO;
 	}
 	
 	public Vehicle find(Long id) {
