@@ -11,30 +11,27 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
+@Data
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"plaqueOne","plaqueTwo"},name = "vehicle_uk")})
 public class Vehicle implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	@Getter @Setter private Long id;
+	private Long id;
 	
 	@Column(nullable = false, length=7)
-	@Getter @Setter private String plaqueOne;
+	private String plaqueOne;
 	
-	@Column(nullable = false, length=7,columnDefinition = "varchar(8) default ''")	
-	@Getter @Setter private String plaqueTwo;
+	@Column(nullable = false, length=7,columnDefinition = "varchar(7) default ''")	
+	private String plaqueTwo;
 		
 	@Column(nullable = false, columnDefinition = "tinyint(1) default 1")
-	@Getter @Setter private Boolean active;
+	private Boolean active;
 }

@@ -21,8 +21,10 @@ public class VehicleService{
 	@Autowired
 	private VehicleRepository repository;
 	
-	public Page<Vehicle> findAll(Pageable pageable){
-		return repository.findAll(pageable);
+	public Page<VehicleDTO> findAll(Pageable pageable){
+		Page<Vehicle> pageVehicles = repository.findAll(pageable);
+		Page<VehicleDTO> pageVehiclesDTO = pageVehicles.map(obj -> (new VehicleDTO(obj)));
+		return pageVehiclesDTO;
 	}
 	
 	public List<VehicleDTO> findAll(){

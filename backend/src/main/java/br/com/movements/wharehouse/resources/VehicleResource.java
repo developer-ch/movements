@@ -36,8 +36,8 @@ public class VehicleResource {
 	}
 	
 	@GetMapping("/page")
-	public ResponseEntity<?> findAll(@PageableDefault Pageable pageable){
-		Page<Vehicle> vehicles = service.findAll(pageable);
+	public ResponseEntity<Page<VehicleDTO>> findAll(@PageableDefault Pageable pageable){
+		Page<VehicleDTO> vehicles = service.findAll(pageable);
 		return ResponseEntity.ok(vehicles);
 	}
 	
