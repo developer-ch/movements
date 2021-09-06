@@ -40,8 +40,12 @@ public class VehicleService{
 	
 	public Vehicle create(Vehicle obj) {
 		obj.setId(null);
-		obj.setActive(true);
+		obj.setActive(true);	
 		return repository.save(obj);
+	}
+	
+	public Vehicle fromDTO(VehicleDTO objDTO) {
+		return new Vehicle(objDTO.getId(), objDTO.getPlaqueOne(), objDTO.getPlaqueTwo(), objDTO.getActive());
 	}
 	
 	public Vehicle update(Vehicle obj) {

@@ -3,6 +3,8 @@ package br.com.movements.wharehouse.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +50,8 @@ public class VehicleResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody Vehicle obj){
+	public ResponseEntity<Void> save(@Valid @RequestBody VehicleDTO objDTO){
+		Vehicle obj = service.fromDTO(objDTO);
 		obj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -57,8 +60,9 @@ public class VehicleResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Vehicle obj, @PathVariable Long id){
-		obj.setId(id);
+	public ResponseEntity<Void> update(@Valid @RequestBody VehicleDTO objDTO, @PathVariable Long id){
+		objDTO.setId(id);
+		Vehicle obj = service.fromDTO(objDTO);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
