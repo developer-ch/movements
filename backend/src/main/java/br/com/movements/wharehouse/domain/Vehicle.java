@@ -29,7 +29,7 @@ public class Vehicle implements Serializable{
 	@Column(nullable = false, length=7)
 	private String plaqueOne;
 	
-	@Column(nullable = false, length=7,columnDefinition = "varchar(7) default ''")	
+	@Column(nullable = false, length=7, columnDefinition = "varchar(7) default ''")	
 	private String plaqueTwo;
 		
 	@Column(nullable = false, columnDefinition = "tinyint(1) default 1")
